@@ -39,7 +39,7 @@ class DetailViewController: UIViewController {
   @IBOutlet weak var starshipTableView: UITableView!
   
   var film: Film!
-  var starships = [Starship]()
+  var starships: [Starship] = []
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -55,6 +55,7 @@ class DetailViewController: UIViewController {
   }
 }
 
+// MARK: - UITableViewDataSource
 extension DetailViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return starships.count
@@ -68,11 +69,12 @@ extension DetailViewController: UITableViewDataSource {
   }
 }
 
+// MARK: - SWAPI
 extension DetailViewController {
   func fetchStarships() {
-    SWAPI.fetchStarships(fromFilm: film, completionHandler: { (starships) in
-      self.starships = starships ?? [Starship]()
-      self.starshipTableView.reloadData()
+    SWAPI.fetchStarships(fromFilm: film, completionHandler: { [weak self] (starships) in
+      self?.starships = starships ?? [Starship]()
+      self?.starshipTableView.reloadData()
     })
   }
 }

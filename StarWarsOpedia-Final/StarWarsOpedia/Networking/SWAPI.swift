@@ -28,10 +28,10 @@
 
 import Alamofire
 
-public struct SWAPI {
+struct SWAPI {
   static let baseEndpoint = "https://swapi.co/api/"
   
-  public static func fetch<T:Decodable>(_ url: String, completionHandler: @escaping (T?) -> ()) {
+  static func fetch<T: Decodable>(_ url: String, completionHandler: @escaping (T?) -> ()) {
     AF.request(url).validate().responseDecodable(of: T.self) { response in
       guard response.error == nil else {
         print(String(describing: response.error?.errorDescription))
@@ -42,7 +42,7 @@ public struct SWAPI {
     }
   }
   
-  public static func fetchStarships(fromFilm film: Film, completionHandler: @escaping ([Starship]?) -> Void) {
+  static func fetchStarships(fromFilm film: Film, completionHandler: @escaping ([Starship]?) -> ()) {
     var starships = [Starship]()
     let fetchGroup = DispatchGroup()
     film.starships.forEach { (url) in

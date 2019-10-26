@@ -26,9 +26,9 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-public struct Films: Decodable {
-  public var count: Int
-  public var all: [Film]
+struct Films: Decodable {
+  var count: Int
+  var all: [Film]
   
   enum CodingKeys: String, CodingKey {
     case count
@@ -36,14 +36,14 @@ public struct Films: Decodable {
   }
 }
 
-public struct Film: Decodable {
-  public var id: Int
-  public var title: String
-  public var openingCrawl: String
-  public var director: String
-  public var producer: String
-  public var releaseDate: String
-  public var starships: [String]
+struct Film: Decodable {
+  var id: Int
+  var title: String
+  var openingCrawl: String
+  var director: String
+  var producer: String
+  var releaseDate: String
+  var starships: [String]
   
   enum CodingKeys: String, CodingKey {
     case id = "episode_id"
@@ -56,19 +56,19 @@ public struct Film: Decodable {
   }
 }
 
-public struct Starship: Decodable {
-  public var name: String
-  public var model: String
-  public var manufacturer: String
-  public var cost: String
-  public var length: String
-  public var maximumSpeed: String
-  public var crewTotal: String
-  public var passengerTotal: String
-  public var cargoCapacity: String
-  public var consumables: String
-  public var hyperdriveRating: String
-  public var starshipClass: String
+struct Starship: Decodable {
+  var name: String
+  var model: String
+  var manufacturer: String
+  var cost: String
+  var length: String
+  var maximumSpeed: String
+  var crewTotal: String
+  var passengerTotal: String
+  var cargoCapacity: String
+  var consumables: String
+  var hyperdriveRating: String
+  var starshipClass: String
   
   enum CodingKeys: String, CodingKey {
     case name

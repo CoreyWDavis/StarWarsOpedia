@@ -30,7 +30,7 @@ import UIKit
 
 class MainTableViewController: UITableViewController {
   
-  var films = [Film]()
+  var films: [Film] = []
   var selectedFilm: Film?
   
   override func viewDidLoad() {
@@ -67,11 +67,13 @@ class MainTableViewController: UITableViewController {
   }
 }
 
+
+// MARK: - SWAPI
 extension MainTableViewController {
   func fetchFilms() {
-    SWAPI.fetch(SWAPI.baseEndpoint + "films") { (films: Films?) in
-      self.films = films?.all ?? [Film]()
-      self.tableView.reloadData()
+    SWAPI.fetch(SWAPI.baseEndpoint + "films") { [weak self] (films: Films?) in
+      self?.films = films?.all ?? [Film]()
+      self?.tableView.reloadData()
     }
   }
 }
