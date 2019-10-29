@@ -11,11 +11,13 @@
 		5EDF5B5C112E2C1EEE10FA9B /* Pods_StarWarsOpedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE4541B441807A46623455C3 /* Pods_StarWarsOpedia.framework */; };
 		D2A5F2091F4A9144005CD714 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2A5F2071F4A9144005CD714 /* Main.storyboard */; };
 		D2A5F2211F4A96D0005CD714 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A5F2201F4A96D0005CD714 /* AppDelegate.swift */; };
+		E032761A236904230010905E /* Film.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0327619236904230010905E /* Film.swift */; };
+		E032761C2369043F0010905E /* Starship.swift in Sources */ = {isa = PBXBuildFile; fileRef = E032761B2369043F0010905E /* Starship.swift */; };
 		E087AAD623620D0900D1E33E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E087AAD523620D0800D1E33E /* Assets.xcassets */; };
 		E087AAD923620E3B00D1E33E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E087AAD723620E3B00D1E33E /* DetailViewController.swift */; };
 		E087AADA23620E3B00D1E33E /* MainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E087AAD823620E3B00D1E33E /* MainTableViewController.swift */; };
 		E087AADD23620E4400D1E33E /* SWAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E087AADB23620E4400D1E33E /* SWAPI.swift */; };
-		E087AADE23620E4400D1E33E /* DataModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = E087AADC23620E4400D1E33E /* DataModels.swift */; };
+		E087AADE23620E4400D1E33E /* Films.swift in Sources */ = {isa = PBXBuildFile; fileRef = E087AADC23620E4400D1E33E /* Films.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,11 +27,13 @@
 		D2A5F2081F4A9144005CD714 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D2A5F20F1F4A9144005CD714 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D2A5F2201F4A96D0005CD714 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		E0327619236904230010905E /* Film.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Film.swift; sourceTree = "<group>"; };
+		E032761B2369043F0010905E /* Starship.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Starship.swift; sourceTree = "<group>"; };
 		E087AAD523620D0800D1E33E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = StarWarsOpedia/Assets.xcassets; sourceTree = SOURCE_ROOT; };
 		E087AAD723620E3B00D1E33E /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		E087AAD823620E3B00D1E33E /* MainTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTableViewController.swift; sourceTree = "<group>"; };
 		E087AADB23620E4400D1E33E /* SWAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SWAPI.swift; sourceTree = "<group>"; };
-		E087AADC23620E4400D1E33E /* DataModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModels.swift; sourceTree = "<group>"; };
+		E087AADC23620E4400D1E33E /* Films.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Films.swift; sourceTree = "<group>"; };
 		E6A7631F516073BD6CB6EFAF /* Pods-StarWarsOpedia.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StarWarsOpedia.debug.xcconfig"; path = "Target Support Files/Pods-StarWarsOpedia/Pods-StarWarsOpedia.debug.xcconfig"; sourceTree = "<group>"; };
 		F171C2FCEE4B426E70CBE87B /* Pods-StarWarsOpedia.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StarWarsOpedia.release.xcconfig"; path = "Target Support Files/Pods-StarWarsOpedia/Pods-StarWarsOpedia.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -109,7 +113,9 @@
 		E087AAE023620E5A00D1E33E /* Networking */ = {
 			isa = PBXGroup;
 			children = (
-				E087AADC23620E4400D1E33E /* DataModels.swift */,
+				E087AADC23620E4400D1E33E /* Films.swift */,
+				E032761B2369043F0010905E /* Starship.swift */,
+				E0327619236904230010905E /* Film.swift */,
 				E087AADB23620E4400D1E33E /* SWAPI.swift */,
 			);
 			path = Networking;
@@ -232,8 +238,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				D2A5F2211F4A96D0005CD714 /* AppDelegate.swift in Sources */,
+				E032761C2369043F0010905E /* Starship.swift in Sources */,
+				E032761A236904230010905E /* Film.swift in Sources */,
 				E087AADA23620E3B00D1E33E /* MainTableViewController.swift in Sources */,
-				E087AADE23620E4400D1E33E /* DataModels.swift in Sources */,
+				E087AADE23620E4400D1E33E /* Films.swift in Sources */,
 				E087AADD23620E4400D1E33E /* SWAPI.swift in Sources */,
 				E087AAD923620E3B00D1E33E /* DetailViewController.swift in Sources */,
 			);
