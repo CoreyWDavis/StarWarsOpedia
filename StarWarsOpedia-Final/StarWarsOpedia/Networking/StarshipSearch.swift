@@ -1,15 +1,15 @@
 /// Copyright (c) 2019 Razeware LLC
-///
+/// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
 /// in the Software without restriction, including without limitation the rights
 /// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 /// copies of the Software, and to permit persons to whom the Software is
 /// furnished to do so, subject to the following conditions:
-///
+/// 
 /// The above copyright notice and this permission notice shall be included in
 /// all copies or substantial portions of the Software.
-///
+/// 
 /// Notwithstanding the foregoing, you may not use, copy, modify, merge, publish,
 /// distribute, sublicense, create a derivative work, and/or sell copies of the
 /// Software in any work that is designed, intended, or marketed for pedagogical or
@@ -17,7 +17,7 @@
 /// or information technology.  Permission for such use, copying, modification,
 /// merger, publication, distribution, sublicensing, creation of derivative works,
 /// or sale is expressly withheld.
-///
+/// 
 /// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 /// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 /// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -26,63 +26,12 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import UIKit
-
-class MainTableViewController: UITableViewController {
+struct StarshipSearch: Decodable {
+  var count: Int
+  var all: [Starship]
   
-  var films: [Film] = []
-  var selectedFilm: Film?
-  
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    fetchFilms()
-    searchStarships()
-  }
-  
-  override func numberOfSections(in tableView: UITableView) -> Int {
-    return 1
-  }
-  
-  override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return films.count
-  }
-  
-  override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: "filmCell", for: indexPath)
-    let film = films[indexPath.row]
-    cell.textLabel?.text = film.title
-    cell.detailTextLabel?.text = "Episode \(film.id)"
-    return cell
-  }
-  
-  override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-    selectedFilm = films[indexPath.row]
-    return indexPath
-  }
-  
-  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    guard let destinationVC = segue.destination as? DetailViewController else {
-      return
-    }
-    destinationVC.film = selectedFilm
-  }
-}
-
-
-// MARK: - SWAPI
-extension MainTableViewController {
-  func fetchFilms() {
-    SWAPI.fetch(SWAPI.baseEndpoint + "films") { [weak self] (films: Films?) in
-      self?.films = films?.all ?? [Film]()
-      self?.tableView.reloadData()
-    }
-  }
-  
-  func searchStarships() {
-    SWAPI.searchForStarships(name: "x") { (starships) in
-      starships?.forEach({ (ship) in
-        print(ship.name)
-      })
-    }
+  enum CodingKeys: String, CodingKey {
+    case count
+    case all = "results"
   }
 }
