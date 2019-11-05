@@ -33,10 +33,12 @@ class MainTableViewController: UITableViewController {
   var films: [Film] = []
   var selectedFilm: Film?
   
+  @IBOutlet weak var searchBar: UISearchBar!
+  
   override func viewDidLoad() {
     super.viewDidLoad()
+    searchBar.delegate = self
     fetchFilms()
-    searchStarships()
   }
   
   override func numberOfSections(in tableView: UITableView) -> Int {
@@ -68,6 +70,13 @@ class MainTableViewController: UITableViewController {
   }
 }
 
+// MARK: -
+extension MainTableViewController: UISearchBarDelegate {
+  func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+    guard let shipName = searchBar.text else { return }
+    searchStarships(for: shipName)
+  }
+}
 
 // MARK: - SWAPI
 extension MainTableViewController {
@@ -78,8 +87,8 @@ extension MainTableViewController {
     }
   }
   
-  func searchStarships() {
-    SWAPI.searchForStarships(name: "x") { (starships) in
+  func searchStarships(for name: String) {
+    SWAPI.searchForStarships(name: name) { (starships) in
       starships?.forEach({ (ship) in
         print(ship.name)
       })
