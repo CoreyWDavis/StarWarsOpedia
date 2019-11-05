@@ -32,6 +32,8 @@ class MainTableViewController: UITableViewController {
   
   var films: [Film] = []
   var selectedFilm: Film?
+  var starships: [Starship] = []
+  var isSearching = false
   
   @IBOutlet weak var searchBar: UISearchBar!
   
@@ -46,18 +48,25 @@ class MainTableViewController: UITableViewController {
   }
   
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return films.count
+    return isSearching ? starships.count : films.count
   }
   
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: "filmCell", for: indexPath)
-    let film = films[indexPath.row]
-    cell.textLabel?.text = film.title
-    cell.detailTextLabel?.text = "Episode \(film.id)"
+    let cell = tableView.dequeueReusableCell(withIdentifier: "dataCell", for: indexPath)
+    if !isSearching {
+      let film = films[indexPath.row]
+      cell.textLabel?.text = film.title
+      cell.detailTextLabel?.text = "Episode \(film.id)"
+    } else {
+      let starship = starships[indexPath.row]
+      cell.textLabel?.text = starship.name
+      cell.detailTextLabel?.text = starship.model
+    }
     return cell
   }
   
   override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+    guard !isSearching else { return nil }
     selectedFilm = films[indexPath.row]
     return indexPath
   }
@@ -74,7 +83,15 @@ class MainTableViewController: UITableViewController {
 extension MainTableViewController: UISearchBarDelegate {
   func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
     guard let shipName = searchBar.text else { return }
+    isSearching = true
     searchStarships(for: shipName)
+  }
+  
+  func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+    isSearching = false
+    searchBar.text = nil
+    searchBar.resignFirstResponder()
+    tableView.reloadData()
   }
 }
 
@@ -88,10 +105,11 @@ extension MainTableViewController {
   }
   
   func searchStarships(for name: String) {
-    SWAPI.searchForStarships(name: name) { (starships) in
-      starships?.forEach({ (ship) in
-        print(ship.name)
-      })
+    SWAPI.searchForStarships(name: name) { [weak self] (starships) in
+      if let starships = starships {
+        self?.starships = starships
+      }
+      self?.tableView.reloadData()
     }
   }
 }
