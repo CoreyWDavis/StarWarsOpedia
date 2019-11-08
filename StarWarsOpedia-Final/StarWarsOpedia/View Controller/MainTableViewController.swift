@@ -75,7 +75,7 @@ class MainTableViewController: UITableViewController {
     guard let destinationVC = segue.destination as? DetailViewController else {
       return
     }
-    destinationVC.film = selectedFilm
+    destinationVC.data = selectedFilm
   }
 }
 

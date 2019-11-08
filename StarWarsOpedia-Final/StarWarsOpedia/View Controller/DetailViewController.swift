@@ -31,26 +31,27 @@ import UIKit
 class DetailViewController: UIViewController {
   
   @IBOutlet weak var titleLabel: UILabel!
-  @IBOutlet weak var episodeNumberLabel: UILabel!
-  @IBOutlet weak var directorLabel: UILabel!
-  @IBOutlet weak var producerLabel: UILabel!
-  @IBOutlet weak var releaseDateLabel: UILabel!
-  @IBOutlet weak var openingCrawlTextView: UITextView!
-  @IBOutlet weak var starshipTableView: UITableView!
+  @IBOutlet weak var subtitleLabel: UILabel!
+  @IBOutlet weak var item1TitleLabel: UILabel!
+  @IBOutlet weak var item1Label: UILabel!
+  @IBOutlet weak var item2TitleLabel: UILabel!
+  @IBOutlet weak var item2Label: UILabel!
+  @IBOutlet weak var item3TitleLabel: UILabel!
+  @IBOutlet weak var item3Label: UILabel!
+  @IBOutlet weak var listTitleLabel: UILabel!
+  @IBOutlet weak var listTableView: UITableView!
   
-  var film: Film!
-  var starships: [Starship] = []
+  var data: Film!
+  var listData: [Starship] = []
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    titleLabel.text = film.title
-    episodeNumberLabel.text = "Episode \(String(film.id))"
-    directorLabel.text = film.director
-    producerLabel.text = film.producer
-    releaseDateLabel.text = film.releaseDate
-    openingCrawlTextView.text = film.openingCrawl
-    openingCrawlTextView.flashScrollIndicators()
-    starshipTableView.dataSource = self
+    titleLabel.text = data.title
+    subtitleLabel.text = "Episode \(String(data.id))"
+    item1Label.text = data.director
+    item2Label.text = data.producer
+    item3Label.text = data.releaseDate
+    listTableView.dataSource = self
     fetchStarships()
   }
 }
@@ -58,12 +59,12 @@ class DetailViewController: UIViewController {
 // MARK: - UITableViewDataSource
 extension DetailViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return starships.count
+    return listData.count
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: "starshipCell", for: indexPath)
-    let starship = starships[indexPath.row]
+    let cell = tableView.dequeueReusableCell(withIdentifier: "listCell", for: indexPath)
+    let starship = listData[indexPath.row]
     cell.textLabel?.text = starship.name
     return cell
   }
@@ -72,9 +73,9 @@ extension DetailViewController: UITableViewDataSource {
 // MARK: - SWAPI
 extension DetailViewController {
   func fetchStarships() {
-    SWAPI.fetchStarships(fromFilm: film, completionHandler: { [weak self] (starships) in
-      self?.starships = starships ?? [Starship]()
-      self?.starshipTableView.reloadData()
+    SWAPI.fetchStarships(fromFilm: data, completionHandler: { [weak self] (starships) in
+      self?.listData = starships ?? [Starship]()
+      self?.listTableView.reloadData()
     })
   }
 }
