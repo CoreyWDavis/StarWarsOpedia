@@ -42,6 +42,34 @@ struct SWAPI {
     }
   }
   
+  static func fetch<T: Decodable>(_ url: String, parameters: [String: String], completionHandler: @escaping (T?) -> ()) {
+    AF.request(url, parameters: parameters).validate().responseDecodable(of: T.self) { response in
+      guard response.error == nil else {
+        print(String(describing: response.error?.errorDescription))
+        completionHandler(nil)
+        return
+      }
+      completionHandler(response.value)
+    }
+  }
+  
+  static func fetchFilms(fromStarship starship: Starship, completionHandler: @escaping ([Film]?) -> ()) {
+    var films = [Film]()
+    let fetchGroup = DispatchGroup()
+    starship.films.forEach { (url) in
+      fetchGroup.enter()
+      fetch(url) { (film: Film?) in
+        if let film = film {
+          films.append(film)
+        }
+        fetchGroup.leave()
+      }
+    }
+    fetchGroup.notify(queue: .main) {
+      completionHandler(films)
+    }
+  }
+  
   static func fetchStarships(fromFilm film: Film, completionHandler: @escaping ([Starship]?) -> ()) {
     var starships = [Starship]()
     let fetchGroup = DispatchGroup()
@@ -56,6 +84,18 @@ struct SWAPI {
     }
     fetchGroup.notify(queue: .main) {
       completionHandler(starships)
+    }
+  }
+  
+  static func searchForStarships( name: String, completionHandler: @escaping([Starship]?) -> ()) {
+    let url = baseEndpoint + "starships"
+    let parameters: [String: String] = ["search": name]
+    fetch(url, parameters: parameters) { (searchResults: StarshipSearch?) in
+      guard let searchResults = searchResults else {
+        completionHandler(nil)
+        return
+      }
+      completionHandler(searchResults.all)
     }
   }
 }

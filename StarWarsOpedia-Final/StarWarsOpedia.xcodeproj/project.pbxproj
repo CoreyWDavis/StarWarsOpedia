@@ -13,6 +13,7 @@
 		D2A5F2211F4A96D0005CD714 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A5F2201F4A96D0005CD714 /* AppDelegate.swift */; };
 		E032761A236904230010905E /* Film.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0327619236904230010905E /* Film.swift */; };
 		E032761C2369043F0010905E /* Starship.swift in Sources */ = {isa = PBXBuildFile; fileRef = E032761B2369043F0010905E /* Starship.swift */; };
+		E032761E23690A440010905E /* StarshipSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = E032761D23690A440010905E /* StarshipSearch.swift */; };
 		E087AAD623620D0900D1E33E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E087AAD523620D0800D1E33E /* Assets.xcassets */; };
 		E087AAD923620E3B00D1E33E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E087AAD723620E3B00D1E33E /* DetailViewController.swift */; };
 		E087AADA23620E3B00D1E33E /* MainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E087AAD823620E3B00D1E33E /* MainTableViewController.swift */; };
@@ -29,6 +30,7 @@
 		D2A5F2201F4A96D0005CD714 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E0327619236904230010905E /* Film.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Film.swift; sourceTree = "<group>"; };
 		E032761B2369043F0010905E /* Starship.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Starship.swift; sourceTree = "<group>"; };
+		E032761D23690A440010905E /* StarshipSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarshipSearch.swift; sourceTree = "<group>"; };
 		E087AAD523620D0800D1E33E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = StarWarsOpedia/Assets.xcassets; sourceTree = SOURCE_ROOT; };
 		E087AAD723620E3B00D1E33E /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		E087AAD823620E3B00D1E33E /* MainTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTableViewController.swift; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				E087AADC23620E4400D1E33E /* Films.swift */,
+				E032761D23690A440010905E /* StarshipSearch.swift */,
 				E032761B2369043F0010905E /* Starship.swift */,
 				E0327619236904230010905E /* Film.swift */,
 				E087AADB23620E4400D1E33E /* SWAPI.swift */,
@@ -240,6 +243,7 @@
 				D2A5F2211F4A96D0005CD714 /* AppDelegate.swift in Sources */,
 				E032761C2369043F0010905E /* Starship.swift in Sources */,
 				E032761A236904230010905E /* Film.swift in Sources */,
+				E032761E23690A440010905E /* StarshipSearch.swift in Sources */,
 				E087AADA23620E3B00D1E33E /* MainTableViewController.swift in Sources */,
 				E087AADE23620E4400D1E33E /* Films.swift in Sources */,
 				E087AADD23620E4400D1E33E /* SWAPI.swift in Sources */,
