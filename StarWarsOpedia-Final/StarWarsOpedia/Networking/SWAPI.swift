@@ -53,6 +53,23 @@ struct SWAPI {
     }
   }
   
+  static func fetchFilms(fromStarship starship: Starship, completionHandler: @escaping ([Film]?) -> ()) {
+    var films = [Film]()
+    let fetchGroup = DispatchGroup()
+    starship.films.forEach { (url) in
+      fetchGroup.enter()
+      fetch(url) { (film: Film?) in
+        if let film = film {
+          films.append(film)
+        }
+        fetchGroup.leave()
+      }
+    }
+    fetchGroup.notify(queue: .main) {
+      completionHandler(films)
+    }
+  }
+  
   static func fetchStarships(fromFilm film: Film, completionHandler: @escaping ([Starship]?) -> ()) {
     var starships = [Starship]()
     let fetchGroup = DispatchGroup()

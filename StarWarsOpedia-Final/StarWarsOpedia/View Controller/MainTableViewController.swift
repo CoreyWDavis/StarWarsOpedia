@@ -31,7 +31,7 @@ import UIKit
 class MainTableViewController: UITableViewController {
   
   var films: [Film] = []
-  var selectedFilm: Film?
+  var selectedItem: Any?
   var starships: [Starship] = []
   var isSearching = false
   
@@ -66,8 +66,11 @@ class MainTableViewController: UITableViewController {
   }
   
   override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-    guard !isSearching else { return nil }
-    selectedFilm = films[indexPath.row]
+    if !isSearching {
+      selectedItem = films[indexPath.row]
+    } else {
+      selectedItem = starships[indexPath.row]
+    }
     return indexPath
   }
   
@@ -75,7 +78,7 @@ class MainTableViewController: UITableViewController {
     guard let destinationVC = segue.destination as? DetailViewController else {
       return
     }
-    destinationVC.data = selectedFilm
+    destinationVC.data = selectedItem
   }
 }
 

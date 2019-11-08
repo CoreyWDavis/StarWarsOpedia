@@ -39,6 +39,7 @@ struct Starship: Decodable {
   var consumables: String
   var hyperdriveRating: String
   var starshipClass: String
+  var films: [String]
   
   enum CodingKeys: String, CodingKey {
     case name
@@ -53,5 +54,6 @@ struct Starship: Decodable {
     case consumables
     case hyperdriveRating = "hyperdrive_rating"
     case starshipClass = "starship_class"
+    case films
   }
 }

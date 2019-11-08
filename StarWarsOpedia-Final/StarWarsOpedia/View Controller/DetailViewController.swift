@@ -41,18 +41,44 @@ class DetailViewController: UIViewController {
   @IBOutlet weak var listTitleLabel: UILabel!
   @IBOutlet weak var listTableView: UITableView!
   
-  var data: Film!
-  var listData: [Starship] = []
+  var data: Any!
+  var listData: [Any] = []
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    titleLabel.text = data.title
-    subtitleLabel.text = "Episode \(String(data.id))"
-    item1Label.text = data.director
-    item2Label.text = data.producer
-    item3Label.text = data.releaseDate
+    commonInit()
+    
     listTableView.dataSource = self
-    fetchStarships()
+    
+    if let film = data as? Film {
+      titleLabel.text = film.title
+      subtitleLabel.text = "Episode \(String(film.id))"
+      item1Label.text = film.director
+      item2Label.text = film.producer
+      item3Label.text = film.releaseDate
+      fetchStarships()
+    } else if let starship = data as? Starship {
+      titleLabel.text = starship.name
+      subtitleLabel.text = starship.model
+      item1Label.text = starship.manufacturer
+      item2Label.text = starship.starshipClass
+      item3Label.text = starship.hyperdriveRating
+      fetchFilms()
+    }
+  }
+  
+  func commonInit() {
+    if let _ = data as? Starship {
+      item1TitleLabel.text = "MANUFACTURER"
+      item2TitleLabel.text = "CLASS"
+      item3TitleLabel.text = "HYPERDRIVE RATING"
+      listTitleLabel.text = "FILMS"
+    } else {
+      item1TitleLabel.text = "DIRECTOR"
+      item2TitleLabel.text = "PRODUCER"
+      item3TitleLabel.text = "RELEASE DATE"
+      listTitleLabel.text = "STARSHIPS"
+    }
   }
 }
 
@@ -64,8 +90,11 @@ extension DetailViewController: UITableViewDataSource {
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "listCell", for: indexPath)
-    let starship = listData[indexPath.row]
-    cell.textLabel?.text = starship.name
+    if let starship = listData[indexPath.row] as? Starship {
+      cell.textLabel?.text = starship.name
+    } else if let film = listData[indexPath.row] as? Film {
+      cell.textLabel?.text = film.title
+    }
     return cell
   }
 }
@@ -73,8 +102,17 @@ extension DetailViewController: UITableViewDataSource {
 // MARK: - SWAPI
 extension DetailViewController {
   func fetchStarships() {
-    SWAPI.fetchStarships(fromFilm: data, completionHandler: { [weak self] (starships) in
+    guard let film = data as? Film else { return }
+    SWAPI.fetchStarships(fromFilm: film, completionHandler: { [weak self] (starships) in
       self?.listData = starships ?? [Starship]()
+      self?.listTableView.reloadData()
+    })
+  }
+  
+  func fetchFilms() {
+    guard let starship = data as? Starship else { return }
+    SWAPI.fetchFilms(fromStarship: starship, completionHandler: { [weak self] (films) in
+      self?.listData = films ?? [Film]()
       self?.listTableView.reloadData()
     })
   }
