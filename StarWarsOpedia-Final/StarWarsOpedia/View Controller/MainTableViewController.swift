@@ -82,7 +82,7 @@ class MainTableViewController: UITableViewController {
   }
 }
 
-// MARK: -
+// MARK: - UISearchBarDelegate
 extension MainTableViewController: UISearchBarDelegate {
   func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
     guard let shipName = searchBar.text else { return }

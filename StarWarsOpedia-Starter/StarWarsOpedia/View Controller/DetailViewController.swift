@@ -31,17 +31,28 @@ import UIKit
 class DetailViewController: UIViewController {
   
   @IBOutlet weak var titleLabel: UILabel!
-  @IBOutlet weak var episodeNumberLabel: UILabel!
-  @IBOutlet weak var directorLabel: UILabel!
-  @IBOutlet weak var producerLabel: UILabel!
-  @IBOutlet weak var releaseDateLabel: UILabel!
-  @IBOutlet weak var openingCrawlTextView: UITextView!
-  @IBOutlet weak var starshipTableView: UITableView!
+  @IBOutlet weak var subtitleLabel: UILabel!
+  @IBOutlet weak var item1TitleLabel: UILabel!
+  @IBOutlet weak var item1Label: UILabel!
+  @IBOutlet weak var item2TitleLabel: UILabel!
+  @IBOutlet weak var item2Label: UILabel!
+  @IBOutlet weak var item3TitleLabel: UILabel!
+  @IBOutlet weak var item3Label: UILabel!
+  @IBOutlet weak var listTitleLabel: UILabel!
+  @IBOutlet weak var listTableView: UITableView!
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    starshipTableView.dataSource = self
+//    commonInit()
+    listTableView.dataSource = self
   }
+  
+//  func commonInit() {
+//    item1TitleLabel.text = "DIRECTOR"
+//    item2TitleLabel.text = "PRODUCER"
+//    item3TitleLabel.text = "RELEASE DATE"
+//    listTitleLabel.text = "STARSHIPS"
+//  }
 }
 
 // MARK: - UITableViewDataSource
@@ -51,7 +62,7 @@ extension DetailViewController: UITableViewDataSource {
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: "starshipCell", for: indexPath)
+    let cell = tableView.dequeueReusableCell(withIdentifier: "listCell", for: indexPath)
     return cell
   }
 }

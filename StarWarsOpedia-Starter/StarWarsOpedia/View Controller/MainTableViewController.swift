@@ -30,8 +30,13 @@ import UIKit
 
 class MainTableViewController: UITableViewController {
   
+  var isSearching = false
+  
+  @IBOutlet weak var searchBar: UISearchBar!
+  
   override func viewDidLoad() {
     super.viewDidLoad()
+    searchBar.delegate = self
   }
   
   override func numberOfSections(in tableView: UITableView) -> Int {
@@ -43,17 +48,22 @@ class MainTableViewController: UITableViewController {
   }
   
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: "filmCell", for: indexPath)
+    let cell = tableView.dequeueReusableCell(withIdentifier: "dataCell", for: indexPath)
     return cell
   }
   
   override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
     return indexPath
   }
+}
+
+// MARK: - UISearchBarDelegate
+extension MainTableViewController: UISearchBarDelegate {
+  func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+    isSearching = true
+  }
   
-  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    guard let destinationVC = segue.destination as? DetailViewController else {
-      return
-    }
+  func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+    isSearching = false
   }
 }
