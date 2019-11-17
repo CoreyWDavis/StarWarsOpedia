@@ -41,18 +41,37 @@ class DetailViewController: UIViewController {
   @IBOutlet weak var listTitleLabel: UILabel!
   @IBOutlet weak var listTableView: UITableView!
   
+  var data: Any!
+  var listData: [Any] = []
+  
   override func viewDidLoad() {
     super.viewDidLoad()
-//    commonInit()
+    commonInit()
+    
     listTableView.dataSource = self
+    
+//    if let film = data as? Film {
+//      titleLabel.text = film.title
+//      subtitleLabel.text = "Episode \(String(film.id))"
+//      item1Label.text = film.director
+//      item2Label.text = film.producer
+//      item3Label.text = film.releaseDate
+//    }
   }
   
-//  func commonInit() {
-//    item1TitleLabel.text = "DIRECTOR"
-//    item2TitleLabel.text = "PRODUCER"
-//    item3TitleLabel.text = "RELEASE DATE"
-//    listTitleLabel.text = "STARSHIPS"
-//  }
+  func commonInit() {
+//    if let _ = data as? Film {
+//      item1TitleLabel.text = "DIRECTOR"
+//      item2TitleLabel.text = "PRODUCER"
+//      item3TitleLabel.text = "RELEASE DATE"
+//      listTitleLabel.text = "STARSHIPS"
+//    } else {
+//      item1TitleLabel.text = "MANUFACTURER"
+//      item2TitleLabel.text = "CLASS"
+//      item3TitleLabel.text = "HYPERDRIVE RATING"
+//      listTitleLabel.text = "FILMS"
+//    }
+  }
 }
 
 // MARK: - UITableViewDataSource
@@ -63,6 +82,9 @@ extension DetailViewController: UITableViewDataSource {
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "listCell", for: indexPath)
+//    if let starship = listData[indexPath.row] as? Starship {
+//      cell.textLabel?.text = starship.name
+//    }
     return cell
   }
 }

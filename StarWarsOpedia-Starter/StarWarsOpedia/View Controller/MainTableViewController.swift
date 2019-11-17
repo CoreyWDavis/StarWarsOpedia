@@ -49,12 +49,24 @@ class MainTableViewController: UITableViewController {
   
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "dataCell", for: indexPath)
+//    if !isSearching {
+//      let film = films[indexPath.row]
+//      cell.textLabel?.text = film.title
+//      cell.detailTextLabel?.text = "Episode \(film.id)"
+//    }
     return cell
   }
   
   override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
     return indexPath
   }
+  
+//  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//    guard let destinationVC = segue.destination as? DetailViewController else {
+//      return
+//    }
+//    destinationVC.data = selectedItem
+//  }
 }
 
 // MARK: - UISearchBarDelegate

@@ -27,6 +27,7 @@
 /// THE SOFTWARE.
 
 import UIKit
+import Alamofire
 
 class DetailViewController: UIViewController {
   
@@ -68,16 +69,16 @@ class DetailViewController: UIViewController {
   }
   
   func commonInit() {
-    if let _ = data as? Starship {
-      item1TitleLabel.text = "MANUFACTURER"
-      item2TitleLabel.text = "CLASS"
-      item3TitleLabel.text = "HYPERDRIVE RATING"
-      listTitleLabel.text = "FILMS"
-    } else {
+    if let _ = data as? Film {
       item1TitleLabel.text = "DIRECTOR"
       item2TitleLabel.text = "PRODUCER"
       item3TitleLabel.text = "RELEASE DATE"
       listTitleLabel.text = "STARSHIPS"
+    } else {
+      item1TitleLabel.text = "MANUFACTURER"
+      item2TitleLabel.text = "CLASS"
+      item3TitleLabel.text = "HYPERDRIVE RATING"
+      listTitleLabel.text = "FILMS"
     }
   }
 }
@@ -99,21 +100,45 @@ extension DetailViewController: UITableViewDataSource {
   }
 }
 
-// MARK: - SWAPI
+// MARK: - Alamofire
 extension DetailViewController {
   func fetchStarships() {
-    guard let film = data as? Film else { return }
-    SWAPI.fetchStarships(fromFilm: film, completionHandler: { [weak self] (starships) in
-      self?.listData = starships ?? [Starship]()
-      self?.listTableView.reloadData()
-    })
+    if let film = data as? Film {
+      var starships = [Starship]()
+      let fetchGroup = DispatchGroup()
+      film.starships.forEach { (url) in
+        fetchGroup.enter()
+        AF.request(url).validate().responseDecodable(of: Starship.self) { (response) in
+          if let starship = response.value {
+            starships.append(starship)
+          }
+          fetchGroup.leave()
+        }
+      }
+      fetchGroup.notify(queue: .main) {
+        self.listData = starships
+        self.listTableView.reloadData()
+      }
+    }
   }
   
   func fetchFilms() {
-    guard let starship = data as? Starship else { return }
-    SWAPI.fetchFilms(fromStarship: starship, completionHandler: { [weak self] (films) in
-      self?.listData = films ?? [Film]()
-      self?.listTableView.reloadData()
-    })
+    if let starship = data as? Starship {
+      var films = [Film]()
+      let fetchGroup = DispatchGroup()
+      starship.films.forEach { (url) in
+        fetchGroup.enter()
+        AF.request(url).validate().responseDecodable(of: Film.self) { (response) in
+          if let film = response.value {
+            films.append(film)
+          }
+          fetchGroup.leave()
+        }
+      }
+      fetchGroup.notify(queue: .main) {
+        self.listData = films
+        self.listTableView.reloadData()
+      }
+    }
   }
 }

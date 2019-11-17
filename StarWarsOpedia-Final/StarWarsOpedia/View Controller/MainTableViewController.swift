@@ -27,14 +27,15 @@
 /// THE SOFTWARE.
 
 import UIKit
+import Alamofire
 
 class MainTableViewController: UITableViewController {
   
+  var isSearching = false
   var films: [Film] = []
   var selectedItem: Any?
   var starships: [Starship] = []
-  var isSearching = false
-  
+
   @IBOutlet weak var searchBar: UISearchBar!
   
   override func viewDidLoad() {
@@ -98,21 +99,25 @@ extension MainTableViewController: UISearchBarDelegate {
   }
 }
 
-// MARK: - SWAPI
+// MARK: - Alamofire
 extension MainTableViewController {
   func fetchFilms() {
-    SWAPI.fetch(SWAPI.baseEndpoint + "films") { [weak self] (films: Films?) in
-      self?.films = films?.all ?? [Film]()
-      self?.tableView.reloadData()
+    AF.request("https://swapi.co/api/films").validate().responseDecodable(of: Films.self) { (response) in
+      if let films = response.value {
+        self.films = films.all
+        self.tableView.reloadData()
+      }
     }
   }
   
   func searchStarships(for name: String) {
-    SWAPI.searchForStarships(name: name) { [weak self] (starships) in
-      if let starships = starships {
-        self?.starships = starships
+    let url = "https://swapi.co/api/starships"
+    let parameters: [String: String] = ["search": name]
+    AF.request(url, parameters: parameters).validate().responseDecodable(of: Starships.self) { response in
+      if let starships = response.value {
+        self.starships = starships.all
+        self.tableView.reloadData()
       }
-      self?.tableView.reloadData()
     }
   }
 }
